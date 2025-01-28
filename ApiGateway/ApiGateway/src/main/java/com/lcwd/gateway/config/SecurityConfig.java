@@ -15,6 +15,7 @@ public class SecurityConfig {
 
         httpSecurity
                 .authorizeExchange()
+//                .pathMatchers("/public/**").permitAll()
                 .anyExchange()
                 .authenticated()
                 .and()

@@ -9,13 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableEurekaClient
 public class RatingServiceApplication {
-
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(RatingServiceApplication.class, args);
 	}
-
-
-
 }

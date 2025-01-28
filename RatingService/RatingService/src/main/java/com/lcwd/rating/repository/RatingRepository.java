@@ -1,11 +1,11 @@
 package com.lcwd.rating.repository;
 
 import com.lcwd.rating.entities.Rating;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface RatingRepository extends MongoRepository<Rating,String>
+public interface RatingRepository extends JpaRepository<Rating,String>
 {
     //custom finder methods
     List<Rating> findByUserId(String userId);

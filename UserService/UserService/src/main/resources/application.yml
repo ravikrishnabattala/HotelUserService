@@ -5,16 +5,15 @@ spring:
   application:
     name: USER-SERVICE
   datasource:
-    url: jdbc:mysql://localhost:3307/microservices
+    url: jdbc:mysql://localhost:3306/microservices?useSSL=false&serverTimezone=UTC
     username: root
-    password: root
+    password: ravi
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
-      hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
 
   config:
@@ -24,19 +23,19 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri:  https://dev-77584981.okta.com/oauth2/default
+          issuer-uri: https://dev-02352501.okta.com/oauth2/default
       client:
         registration:
           my-internal-client:
             provider: okta
             authorization-grant-type: client_credentials
             scope: internal
-            client-id: 0oa7w65a24Px9Oyms5d7
-            client-secret: JfsTTqODW21uapbbhKjW42sGzjcNs86GN7WL5dfU
+            client-id: 0oamyj4regvkymC0B5d7
+            client-secret: O9AN4eENFeR8o7lLt9Z4XomrmUcyQObMe3xkh60ciEKBFWSc7Ccy7nNcepin-_IB
 
         provider:
           okta:
-            issuer-uri:  https://dev-77584981.okta.com/oauth2/default
+            issuer-uri: https://dev-02352501.okta.com/oauth2/default
 
 
 
@@ -96,15 +95,5 @@ resilience4j:
 
 okta:
   oauth2:
-    issuer: https://dev-77584981.okta.com/oauth2/default
+    issuer: https://dev-02352501.okta.com/oauth2/default
     audience: api://default
-
-
-
-
-
-
-
-
-
-

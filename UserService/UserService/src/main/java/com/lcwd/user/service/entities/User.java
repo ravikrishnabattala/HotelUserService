@@ -23,8 +23,8 @@ public class User {
     private String name;
 
     @Column(name = "EMAIL")
-
     private String email;
+
     @Column(name = "ABOUT")
     private String about;
     //other user properties that you want
