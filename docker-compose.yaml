@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Eureka Service Registry (Eureka Server)
+  serviceregistry:
+    image: serviceregistry:latest
+    container_name: serviceregistry
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices-network
+
+  # API Gateway
+  apigateway:
+    image: apigateway:latest
+    container_name: apigateway
+    ports:
+      - "8084:8084"
+    networks:
+      - microservices-network
+    depends_on:
+      - serviceregistry
+    environment:
+      - SERVICE_REGISTRY=serviceregistry
+
+  # Config Server
+  configserver:
+    image: configserver:latest
+    container_name: configserver
+    ports:
+      - "8085:8085"
+    networks:
+      - microservices-network
+    depends_on:
+      - serviceregistry
+    environment:
+      - SERVICE_REGISTRY=serviceregistry
+
+
+  # Rating Service
+  ratingservice:
+    image: ratingservice:latest
+    container_name: ratingservice
+    ports:
+      - "8083:8083"
+    networks:
+      - microservices-network
+    depends_on:
+      - serviceregistry
+      - configserver
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/microservice
+      - CONFIG_SERVER=configserver
+      -  SERVICE_REGISTRY=serviceregistry
+
+  # Hotel Service
+  hotelservice:
+    image: hotelservice:latest
+    container_name: hotelservice
+    ports:
+      - "8082:8082"
+    networks:
+      - microservices-network
+    depends_on:
+      - serviceregistry
+      - configserver
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/microservice
+      - CONFIG_SERVER=configserver
+      - SERVICE_REGISTRY=serviceregistry
+
+  # User Service
+  userservice:
+    image: userservice:latest
+    container_name: userservice
+    ports:
+      - "8081:8081"
+    networks:
+      - microservices-network
+    depends_on:
+      - serviceregistry
+      - configserver
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/microservices
+      - CONFIG_SERVER=configserver
+      - SERVICE_REGISTRY=serviceregistry
+
+networks:
+  microservices-network:
+    driver: bridge
